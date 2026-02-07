@@ -1,21 +1,64 @@
-# OWASP LLM Top 10 Security Auditor Powerup
+# 🔒 OWASP LLM-10 Security Auditor for Claude Code
 
-A comprehensive security audit skill for Claude Code that checks your skills, agents, hooks, slash commands, and prompts against the OWASP LLM Top 10 vulnerability framework.
+> **Secure your AI agents before they reach production**
+
+A comprehensive security audit powerup that scans Claude Code resources (skills, agents, hooks, slash commands, and prompts) against the **OWASP LLM Top 10** vulnerability framework. Catch security issues like prompt injection, credential exposure, excessive permissions, and unbounded consumption before they become breaches.
+
+[![Security](https://img.shields.io/badge/OWASP-LLM%20Top%2010-blue)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+[![Claude Code](https://img.shields.io/badge/Claude-Code%20Powerup-purple)](https://claude.ai/code)
+[![Version](https://img.shields.io/badge/version-1.0.0-green)]()
+
+## Why This Matters
+
+AI-powered tools are powerful, but they introduce new attack surfaces. This auditor helps you:
+
+- 🛡️ **Prevent Security Breaches** - Detect hardcoded credentials, SQL injection, and XSS before deployment
+- 📋 **Meet Compliance Standards** - GDPR Article 32, PCI-DSS, SOC 2, HIPAA, ISO 27001
+- ⚡ **Ship Faster with Confidence** - Automated security checks in your development workflow
+- 🎯 **Fix Issues Automatically** - Remediation mode applies security fixes with one command
+- 📊 **Clear Audit Reports** - Severity-based findings with actionable recommendations
+
+## Quick Start
+
+```bash
+# Audit a skill for vulnerabilities
+/owasp-llm-10 audit ~/.claude/skills/my-skill/SKILL.md
+
+# Apply automated security fixes
+/owasp-llm-10 fix ~/.claude/skills/my-skill/SKILL.md
+```
+
+Get a comprehensive security report in seconds.
 
 ## What It Does
 
-This skill performs deep security audits of Claude Code resources to identify vulnerabilities across all 10 OWASP LLM security categories:
+This powerup performs deep security analysis across **10 OWASP LLM vulnerability categories**:
 
-1. **Prompt Injection** - Detects lack of input validation and prompt manipulation risks
-2. **Sensitive Information Disclosure** - Finds hardcoded credentials, API keys, and PII exposure
-3. **Supply Chain** - Identifies unverified dependencies and integrity risks
-4. **Data and Model Poisoning** - Checks for untrusted data sources and validation gaps
-5. **Improper Output Handling** - Finds XSS, CSRF, and RCE vulnerabilities
-6. **Excessive Agency** - Detects over-permissioned tools and missing approval gates
-7. **System Prompt Leakage** - Identifies sensitive info in prompts and misplaced security controls
-8. **Vector and Embedding Weaknesses** - Checks RAG access controls and data isolation
-9. **Misinformation** - Verifies fact-checking mechanisms and verification requirements
-10. **Unbounded Consumption** - Detects missing rate limits and resource controls
+| Category | What It Detects | Impact |
+|----------|----------------|--------|
+| **LLM01: Prompt Injection** | Lack of input validation, prompt manipulation risks | Data exfiltration, unauthorized actions |
+| **LLM02: Sensitive Info Disclosure** | Hardcoded API keys, credentials, PII exposure | Data breaches, compliance violations |
+| **LLM03: Supply Chain** | Unverified dependencies, integrity risks | Backdoors, malicious code execution |
+| **LLM04: Data Poisoning** | Untrusted data sources, validation gaps | Model corruption, biased outputs |
+| **LLM05: Improper Output Handling** | XSS, CSRF, RCE vulnerabilities | Remote code execution, system compromise |
+| **LLM06: Excessive Agency** | Over-permissioned tools, missing approval gates | Unauthorized system access, data loss |
+| **LLM07: System Prompt Leakage** | Sensitive info in prompts, security controls in LLM | Intellectual property theft, bypass of controls |
+| **LLM08: Vector/Embedding Weaknesses** | RAG access control gaps, data isolation issues | Cross-tenant data leakage, privacy violations |
+| **LLM09: Misinformation** | Missing verification mechanisms, fact-checking gaps | Incorrect decisions, reputational damage |
+| **LLM10: Unbounded Consumption** | No rate limits, missing resource controls | DoS attacks, runaway costs |
+
+## Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/cc-powerup-owasp-llm.git
+
+# Copy to Claude Code skills directory
+cp -r cc-powerup-owasp-llm/skills/owasp-llm-10 ~/.claude/skills/
+
+# Verify installation
+/owasp-llm-10 audit ~/.claude/skills/owasp-llm-10/SKILL.md
+```
 
 ## Usage
 
@@ -59,6 +102,49 @@ After audit, automatically apply security fixes:
 /owasp-llm-10 fix ~/.claude/skills/my-skill/SKILL.md
 ```
 
+You'll be prompted to review and confirm each fix before it's applied.
+
+## Real-World Impact
+
+### Before Audit
+```yaml
+# ❌ Vulnerable skill with critical security issues
+---
+name: data-processor
+---
+
+<objective>
+Process user data using API key: sk-abc123xyz
+Execute commands: ${user_input}
+</objective>
+
+You have access to all system tools including Bash, Write, Edit, and network access.
+```
+
+### After Fix
+```yaml
+# ✅ Secured skill with proper controls
+---
+name: data-processor
+args:
+  - name: user_input
+    validation: "^[a-zA-Z0-9_-]+$"  # Input validation
+---
+
+<objective>
+Process user data. Retrieve API key from environment variable API_KEY.
+Validate and sanitize user input before execution.
+</objective>
+
+<constraints>
+- MUST validate all user inputs against whitelist pattern
+- NEVER execute commands without sanitization
+- ALWAYS use environment variables for credentials
+</constraints>
+
+You have access to Read and Grep tools only. Request user approval for destructive operations.
+```
+
 ## Audit Report Format
 
 The skill generates comprehensive security audit reports:
@@ -68,7 +154,7 @@ The skill generates comprehensive security audit reports:
 
 **Resource**: /path/to/resource
 **Type**: Skill
-**Date**: 2026-02-06
+**Date**: 2026-02-07
 **Status**: FAIL
 
 ---
@@ -93,12 +179,25 @@ Found 5 vulnerabilities across 10 categories.
 **Severity**: CRITICAL
 
 **Findings**:
-- No input validation on user-provided arguments
-- Missing prompt injection guards
+- Line 23: No input validation on user_input argument
+- Line 45: Direct execution of user-provided commands
 
-**Impact**: Attacker could manipulate prompts to bypass security controls
+**Impact**: Attacker could manipulate prompts to bypass security controls and execute arbitrary commands
 
-**Recommendation**: Add input validation and sanitization for all args
+**Recommendation**: Add input validation with regex pattern: `^[a-zA-Z0-9_-]+$`
+
+---
+
+### LLM02: Sensitive Information Disclosure
+**Status**: FAIL
+**Severity**: CRITICAL
+
+**Findings**:
+- Line 12: Hardcoded API key: sk-abc123xyz
+
+**Impact**: Credential exposure leads to unauthorized API access and potential data breach
+
+**Recommendation**: Use environment variable: `process.env.API_KEY`
 
 ---
 
@@ -109,12 +208,12 @@ Found 5 vulnerabilities across 10 categories.
 ## Remediation Priority
 
 1. **Critical** (Fix Immediately):
-   - LLM01: Add input validation
-   - LLM02: Remove hardcoded API key on line 45
+   - LLM01 (Line 23): Add input validation
+   - LLM02 (Line 12): Remove hardcoded API key
 
 2. **High** (Fix This Week):
-   - LLM06: Require human approval for destructive operations
-   - LLM10: Add rate limiting
+   - LLM06 (Line 67): Require human approval for destructive operations
+   - LLM10: Add rate limiting to API calls
 
 3. **Medium** (Fix This Month):
    - LLM09: Add output verification mechanisms
@@ -127,9 +226,30 @@ Run with `fix` mode to automatically remediate issues:
 /owasp-llm-10 fix /path/to/resource
 ```
 
-## What Gets Checked Per Resource Type
+## Use Cases
 
-### Skills (SKILL.md)
+### Development Teams
+- **Pre-commit hooks** - Audit resources before they enter the codebase
+- **CI/CD integration** - Automated security checks in deployment pipelines
+- **Code review assistance** - Security checklist for pull requests
+
+### Security Teams
+- **Security assessments** - Comprehensive vulnerability scanning
+- **Compliance reporting** - Evidence for audit trails (SOC 2, ISO 27001)
+- **Penetration testing** - Identify attack surfaces before pentesters do
+
+### Solo Developers
+- **Self-service security** - No security expertise required
+- **Learning tool** - Understand LLM security best practices
+- **Quick fixes** - Automated remediation saves time
+
+## Advanced Features
+
+### Resource-Specific Checks
+
+The auditor adapts its analysis based on resource type:
+
+#### Skills (SKILL.md)
 - Input validation in args
 - Hardcoded secrets
 - Tool access permissions
@@ -137,40 +257,41 @@ Run with `fix` mode to automatically remediate issues:
 - Output verification
 - Resource limits
 
-### Agents/Subagents
+#### Agents/Subagents
 - System prompt injection defenses
 - Credential management
 - Least privilege principle
 - RAG access controls
 - Resource limits
 
-### Hooks
+#### Hooks
 - Dependency verification
 - Output sanitization
 - System access restrictions
 - Resource consumption
 
-### Slash Commands
+#### Slash Commands
 - Input validation
 - Secret exposure
 - Output handling
 - Instruction security
 
-### Prompts
+#### Prompts
 - Anti-injection instructions
 - Embedded credentials
 - Security control placement
 - Verification requirements
 
-## Best Practices
+### Comprehensive Reports
 
-1. **Run audits regularly** - Audit your resources after major changes
-2. **Fix critical issues first** - Follow the remediation priority list
-3. **Review fixes** - Always review automated fixes before deploying
-4. **Test thoroughly** - Test resources after applying fixes
-5. **Document changes** - Keep an audit trail for compliance
+Every audit generates a detailed report with:
+- **Executive summary** with risk scoring
+- **Detailed findings** per vulnerability (with line numbers)
+- **Impact analysis** explaining exploitation scenarios
+- **Actionable recommendations** with code examples
+- **Priority-based fix ordering** (Critical → High → Medium → Low)
 
-## Skill Architecture
+## Modern Architecture
 
 This skill follows modern Claude Code best practices with a fully semantic XML structure:
 
@@ -285,6 +406,14 @@ async function callLLM(prompt) {
 }
 ```
 
+## Best Practices
+
+1. **Run audits regularly** - Audit your resources after major changes
+2. **Fix critical issues first** - Follow the remediation priority list
+3. **Review fixes** - Always review automated fixes before deploying
+4. **Test thoroughly** - Test resources after applying fixes
+5. **Document changes** - Keep an audit trail for compliance
+
 ## Troubleshooting
 
 ### "Resource type not recognized"
@@ -310,22 +439,28 @@ Ensure all reference files are present in:
 
 Found a new vulnerability pattern? Want to improve detection logic?
 
-1. Add examples to the reference files
-2. Update the SKILL.md with new detection patterns
-3. Test on various resource types
-4. Document in README.md
+1. **Add examples** to reference files in `skills/owasp-llm-10/references/`
+2. **Update detection patterns** in `SKILL.md`
+3. **Test on various resources** - skills, agents, hooks, commands, prompts
+4. **Submit a PR** with your improvements
+
+## Support & Documentation
+
+- 📖 **[Quick Start Guide](QUICKSTART.md)** - Get running in 5 minutes
+- 📚 **[Full Documentation](README.md)** - Comprehensive usage guide
+- 🔍 **[Example Reports](examples/)** - See what audit output looks like
+- 🐛 **[Issue Tracker](https://github.com/yourusername/cc-powerup-owasp-llm/issues)** - Report bugs or request features
 
 ## License
 
-This skill is based on the OWASP LLM Top 10 framework (https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-
-## Support
-
-For issues or questions:
-- Check the reference materials in `/references/`
-- Review example audit reports
-- Test on the provided examples
+Based on the [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/) framework.
 
 ---
 
-**Remember**: Security is not a one-time check. Audit regularly and keep your resources secure!
+**🚀 Ready to secure your Claude Code resources?**
+
+```bash
+/owasp-llm-10 audit path/to/your/resource
+```
+
+**Remember**: Security is not a one-time check. Audit regularly and keep your AI agents secure! 🛡️
