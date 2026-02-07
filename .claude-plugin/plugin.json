@@ -1,8 +1,8 @@
 {
-    "name": "Azure Architect Powerup",
-    "description": "Expert Azure cloud architecture and DevOps guidance. Part of Claude Code Powerups marketplace (https://github.com/waelouf/claude-code-powerups). Build production-grade Azure infrastructure with Bicep/Terraform, CI/CD pipelines, and comprehensive best practices.",
+    "name": "owasp-llm-10",
+    "description": "Audits Claude Code resources (skills, agents, hooks, slash commands, prompts) against OWASP LLM Top 10 security vulnerabilities. Use before deploying to production, after major changes, or for regular security reviews. Generates detailed reports with remediation guidance.",
     "version": "1.0.0",
     "author": {
         "name": "Claude Code Powerups"
-        }
+    }
 }
