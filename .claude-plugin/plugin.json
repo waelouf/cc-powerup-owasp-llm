@@ -5,5 +5,27 @@
     "author": {
         "name": "Claude Code Powerups"
     },
-    "license": "MIT"
+    "license": "MIT",
+    "keywords": [
+        "security",
+        "security-audit",
+        "owasp",
+        "owasp-llm-top-10",
+        "vulnerability-scanning",
+        "llm-security",
+        "ai-security",
+        "static-analysis",
+        "security-testing",
+        "compliance",
+        "prompt-injection",
+        "data-protection",
+        "security-best-practices",
+        "vulnerability-detection",
+        "security-assessment",
+        "code-audit",
+        "skills-audit",
+        "agents-audit",
+        "hooks-audit",
+        "slash-commands-audit"
+    ]
 }
