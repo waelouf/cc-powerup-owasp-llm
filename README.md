@@ -1,6 +1,8 @@
 # 🔒 OWASP LLM-10 Security Auditor Powerup
 
 > **Secure your AI agents before they reach production**
+>
+> >**Part of [Claude Code Powerups](https://github.com/waelouf/claude-code-powerups)** - a marketplace of specialized plugins that extend Claude Code's capabilities.
 
 A comprehensive security audit powerup that scans Claude Code resources (skills, agents, hooks, slash commands, and prompts) against the **OWASP LLM Top 10** vulnerability framework. Catch security issues like prompt injection, credential exposure, excessive permissions, and unbounded consumption before they become breaches.
 
@@ -9,9 +11,6 @@ A comprehensive security audit powerup that scans Claude Code resources (skills,
 [![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)]()
 [![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)](LICENSE)
 
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/cc-powerup-owasp-llm?style=social)](https://github.com/yourusername/cc-powerup-owasp-llm/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/cc-powerup-owasp-llm?style=social)](https://github.com/yourusername/cc-powerup-owasp-llm/network/members)
-[![GitHub issues](https://img.shields.io/github/issues/yourusername/cc-powerup-owasp-llm?style=social)](https://github.com/yourusername/cc-powerup-owasp-llm/issues)
 
 **Topics:** `claude-code` · `owasp` · `security-audit` · `llm-security` · `vulnerability-scanner` · `ai-security` · `prompt-injection` · `security-tools`
 
