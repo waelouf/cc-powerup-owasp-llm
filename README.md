@@ -1,12 +1,19 @@
-# 🔒 OWASP LLM-10 Security Auditor for Claude Code
+# 🔒 OWASP LLM-10 Security Auditor Powerup
 
 > **Secure your AI agents before they reach production**
 
 A comprehensive security audit powerup that scans Claude Code resources (skills, agents, hooks, slash commands, and prompts) against the **OWASP LLM Top 10** vulnerability framework. Catch security issues like prompt injection, credential exposure, excessive permissions, and unbounded consumption before they become breaches.
 
-[![Security](https://img.shields.io/badge/OWASP-LLM%20Top%2010-blue)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
-[![Claude Code](https://img.shields.io/badge/Claude-Code%20Powerup-purple)](https://claude.ai/code)
-[![Version](https://img.shields.io/badge/version-1.0.0-green)]()
+[![OWASP](https://img.shields.io/badge/OWASP-LLM%20Top%2010-blue?style=for-the-badge&logo=owasp)](https://owasp.org/www-project-top-10-for-large-language-model-applications/)
+[![Claude Code](https://img.shields.io/badge/Claude-Code%20Powerup-purple?style=for-the-badge&logo=anthropic)](https://claude.ai/code)
+[![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)]()
+[![License](https://img.shields.io/badge/license-MIT-orange?style=for-the-badge)](LICENSE)
+
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/cc-powerup-owasp-llm?style=social)](https://github.com/yourusername/cc-powerup-owasp-llm/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/cc-powerup-owasp-llm?style=social)](https://github.com/yourusername/cc-powerup-owasp-llm/network/members)
+[![GitHub issues](https://img.shields.io/github/issues/yourusername/cc-powerup-owasp-llm?style=social)](https://github.com/yourusername/cc-powerup-owasp-llm/issues)
+
+**Topics:** `claude-code` · `owasp` · `security-audit` · `llm-security` · `vulnerability-scanner` · `ai-security` · `prompt-injection` · `security-tools`
 
 ## Why This Matters
 
