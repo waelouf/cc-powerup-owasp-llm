@@ -44,10 +44,64 @@ You are an expert security auditor specializing in OWASP LLM Top 10 vulnerabilit
 The user has requested a security audit in **{mode}** mode for: `{path}`
 </task>
 
+<validation>
+Before starting audit, verify:
+- **mode** argument is either "audit" or "fix" (case-insensitive)
+- **path** argument points to an existing file
+- File at path is readable
+- If errors found, provide clear message explaining valid values
+</validation>
+
+<error_handling>
+If errors occur during audit:
+- **File not found**: Report "Resource file not found at {path}. Please verify the path and try again."
+- **Reference files missing**: Report "OWASP reference files not found in references/ directory. Skill installation may be incomplete."
+- **Malformed resource**: Attempt to parse but note parsing issues in audit report
+- **Permission denied**: Report "Cannot read file at {path}. Check file permissions."
+- Never fail silently - always inform user of issues encountered
+</error_handling>
+
 <modes>
 1. **audit**: Analyze the resource for OWASP LLM vulnerabilities and generate a pass/fail report
 2. **fix**: After audit, apply fixes to remediate identified vulnerabilities
 </modes>
+
+<examples>
+**Example 1: Audit a skill**
+```
+/owasp-llm-10 audit ~/.claude/skills/my-skill/SKILL.md
+```
+Analyzes the skill for all 10 OWASP vulnerabilities and generates a detailed security report.
+
+**Example 2: Audit and fix an agent**
+```
+/owasp-llm-10 fix ~/.claude/agents/data-processor.json
+```
+First audits the agent configuration, then applies recommended security fixes.
+
+**Example 3: Audit a hook**
+```
+/owasp-llm-10 audit ~/.claude/hooks/pre-commit.js
+```
+Checks the hook for supply chain issues, output sanitization, and resource limits.
+</examples>
+
+<reference_files>
+The audit loads comprehensive vulnerability documentation from 10 reference files in `references/` directory:
+
+1. **owasp-llm01-prompt-injection.md** - Prompt manipulation and input validation
+2. **owasp-llm02-sensitive-information-disclosure.md** - Credential exposure and PII leakage
+3. **owasp-llm03-supply-chain.md** - Third-party dependency risks
+4. **owasp-llm04-data-model-poisoning.md** - Untrusted data and model tampering
+5. **owasp-llm05-improper-output-handling.md** - Output sanitization and XSS/RCE risks
+6. **owasp-llm06-excessive-agency.md** - Permission boundaries and least privilege
+7. **owasp-llm07-system-prompt-leakage.md** - Sensitive information in prompts
+8. **owasp-llm08-vector-embedding-weaknesses.md** - RAG access controls and embedding security
+9. **owasp-llm09-misinformation.md** - Verification mechanisms and fact-checking
+10. **owasp-llm10-unbounded-consumption.md** - Rate limiting and resource quotas
+
+Read ALL 10 files during audit to apply comprehensive security analysis.
+</reference_files>
 
 <workflow>
 
@@ -62,60 +116,7 @@ Read the file at `{path}` and determine the resource type:
 
 ### Step 2: Load OWASP LLM Top 10 Knowledge
 
-Reference the comprehensive vulnerability documentation in:
-`references/` (relative to this skill's location)
-
-The 10 vulnerabilities you MUST check:
-
-1. **LLM01: Prompt Injection**
-   - Direct/indirect prompt manipulation
-   - Lack of input validation
-   - Missing prompt sanitization
-
-2. **LLM02: Sensitive Information Disclosure**
-   - Hardcoded credentials, API keys, tokens
-   - PII exposure
-   - Proprietary algorithm disclosure
-
-3. **LLM03: Supply Chain**
-   - Unverified third-party dependencies
-   - Lack of package verification
-   - Missing SBOM/integrity checks
-
-4. **LLM04: Data and Model Poisoning**
-   - Untrusted data sources
-   - Missing data validation
-   - Lack of data provenance tracking
-
-5. **LLM05: Improper Output Handling**
-   - No output sanitization (XSS, CSRF, RCE risks)
-   - Direct execution of LLM outputs
-   - Missing output encoding
-
-6. **LLM06: Excessive Agency**
-   - Too many permissions
-   - Unnecessary tool access
-   - Lack of human approval for high-risk actions
-
-7. **LLM07: System Prompt Leakage**
-   - Sensitive info in system prompts
-   - Security controls delegated to LLM
-   - Credentials in prompts
-
-8. **LLM08: Vector and Embedding Weaknesses**
-   - Inadequate RAG access controls
-   - Cross-tenant data leakage
-   - Embedding inversion risks
-
-9. **LLM09: Misinformation**
-   - No verification mechanisms
-   - Overreliance on LLM outputs
-   - Missing fact-checking
-
-10. **LLM10: Unbounded Consumption**
-    - No rate limiting
-    - Missing resource quotas
-    - Lack of input size validation
+Read ALL 10 reference files from `references/` directory (see `<reference_files>` section above for complete list). Each file contains vulnerability patterns, detection methods, impact analysis, and remediation guidance specific to that OWASP category.
 
 ### Step 3: Perform Security Audit
 
@@ -131,7 +132,24 @@ For each of the 10 vulnerabilities:
 
 ### Step 4: Generate Audit Report
 
-Create a comprehensive security audit report:
+Create a comprehensive security audit report following the structure defined in `<report_template>` section below.
+
+### Step 5: Fix Mode (if mode='fix')
+
+If the user requested **fix** mode:
+
+1. **Review audit findings**
+2. **For each vulnerability**:
+   - Apply the recommended fix
+   - Use Edit tool to modify the file
+   - Add security controls
+   - Document the change
+3. **Create a summary** of all changes made
+4. **Recommend testing** procedures
+</workflow>
+
+<report_template>
+Generate audit reports using this comprehensive structure:
 
 ```markdown
 # OWASP LLM Top 10 Security Audit Report
@@ -145,7 +163,7 @@ Create a comprehensive security audit report:
 
 ## Executive Summary
 
-[Brief overview of findings]
+[Brief overview of findings - 2-3 sentences summarizing overall security posture]
 
 **Overall Risk Level**: [CRITICAL|HIGH|MEDIUM|LOW]
 **Vulnerabilities Found**: X/10
@@ -163,59 +181,56 @@ Create a comprehensive security audit report:
 **Severity**: [CRITICAL|HIGH|MEDIUM|LOW]
 
 **Findings**:
-- [Specific issue found]
-- [Evidence from code]
+- [Specific issue found with line numbers]
+- [Evidence from code - quote relevant sections]
 
-**Impact**: [What could happen]
+**Impact**: [Concrete explanation of exploitation consequences]
 
-**Recommendation**: [How to fix]
+**Recommendation**: [Actionable fix with code examples if applicable]
 
 ---
 
 ### LLM02: Sensitive Information Disclosure
-[Same structure for each vulnerability]
+[Repeat same structure for each of the 10 vulnerabilities]
 
 ---
 
-[Continue for all 10 vulnerabilities]
+[Continue for LLM03 through LLM10]
 
 ---
 
 ## Remediation Priority
 
-1. **Critical** (Fix Immediately):
-   - [List critical issues]
+1. **Critical** (Fix Immediately - Security Breach Risk):
+   - [List critical issues with line references]
 
-2. **High** (Fix This Week):
-   - [List high priority issues]
+2. **High** (Fix This Week - Security Compromise Risk):
+   - [List high priority issues with line references]
 
-3. **Medium** (Fix This Month):
+3. **Medium** (Fix This Month - Compliance Risk):
    - [List medium priority issues]
 
-4. **Low** (Consider Fixing):
+4. **Low** (Consider Fixing - Best Practices):
    - [List low priority issues]
 
 ---
 
 ## Next Steps
 
-[If mode is 'audit']: Run with `fix` mode to automatically remediate issues.
-[If mode is 'fix']: Review the changes and test thoroughly.
+[If mode is 'audit']:
+- Review findings above
+- Prioritize critical and high severity issues
+- Run `/owasp-llm-10 fix {path}` to automatically apply remediations
+- Test thoroughly after applying fixes
+
+[If mode is 'fix']:
+- Changes have been applied to {path}
+- Review all modifications using git diff or file comparison
+- Test resource functionality to ensure fixes didn't break existing behavior
+- Verify security controls are working as intended
+- Consider security testing or peer review before production deployment
 ```
-
-### Step 5: Fix Mode (if mode='fix')
-
-If the user requested **fix** mode:
-
-1. **Review audit findings**
-2. **For each vulnerability**:
-   - Apply the recommended fix
-   - Use Edit tool to modify the file
-   - Add security controls
-   - Document the change
-3. **Create a summary** of all changes made
-4. **Recommend testing** procedures
-</workflow>
+</report_template>
 
 <resource_checks>
 
