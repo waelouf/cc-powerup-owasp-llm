@@ -170,6 +170,25 @@ Run with `fix` mode to automatically remediate issues:
 4. **Test thoroughly** - Test resources after applying fixes
 5. **Document changes** - Keep an audit trail for compliance
 
+## Skill Architecture
+
+This skill follows modern Claude Code best practices with a fully semantic XML structure:
+
+- **Required Tags**: `<objective>`, `<quick_start>`, `<success_criteria>` for clear purpose and usage
+- **Conditional Tags**: `<validation>`, `<error_handling>`, `<examples>`, `<reference_files>`, `<report_template>` for robustness
+- **Semantic Structure**: All major sections use XML tags (`<task>`, `<modes>`, `<workflow>`, `<resource_checks>`, `<implementation>`, `<constraints>`)
+- **Progressive Disclosure**: Content organized for optimal navigation and comprehension
+- **Cross-Platform**: Uses relative paths, works on Windows, Mac, and Linux
+- **Error Handling**: Comprehensive coverage of common failure scenarios with clear user messaging
+
+### Key Features
+
+- **Input Validation**: Verifies mode and path arguments before execution
+- **Robust Error Messages**: Clear guidance when files not found, permissions denied, or reference files missing
+- **Concrete Examples**: Three usage examples covering skills, agents, and hooks
+- **Documented References**: Explicit listing of all 10 OWASP reference files with descriptions
+- **Extracted Report Template**: 60-line comprehensive report structure for consistency
+
 ## Reference Materials
 
 All OWASP LLM Top 10 vulnerability references are included in:
@@ -177,16 +196,16 @@ All OWASP LLM Top 10 vulnerability references are included in:
 ~/.claude/skills/owasp-llm-10/references/
 ```
 
-- `owasp-llm01-prompt-injection.md`
-- `owasp-llm02-sensitive-information-disclosure.md`
-- `owasp-llm03-supply-chain.md`
-- `owasp-llm04-data-model-poisoning.md`
-- `owasp-llm05-improper-output-handling.md`
-- `owasp-llm06-excessive-agency.md`
-- `owasp-llm07-system-prompt-leakage.md`
-- `owasp-llm08-vector-embedding-weaknesses.md`
-- `owasp-llm09-misinformation.md`
-- `owasp-llm10-unbounded-consumption.md`
+- `owasp-llm01-prompt-injection.md` - Prompt manipulation and input validation
+- `owasp-llm02-sensitive-information-disclosure.md` - Credential exposure and PII leakage
+- `owasp-llm03-supply-chain.md` - Third-party dependency risks
+- `owasp-llm04-data-model-poisoning.md` - Untrusted data and model tampering
+- `owasp-llm05-improper-output-handling.md` - Output sanitization and XSS/RCE risks
+- `owasp-llm06-excessive-agency.md` - Permission boundaries and least privilege
+- `owasp-llm07-system-prompt-leakage.md` - Sensitive information in prompts
+- `owasp-llm08-vector-embedding-weaknesses.md` - RAG access controls and embedding security
+- `owasp-llm09-misinformation.md` - Verification mechanisms and fact-checking
+- `owasp-llm10-unbounded-consumption.md` - Rate limiting and resource quotas
 
 ## Common Vulnerabilities Found
 

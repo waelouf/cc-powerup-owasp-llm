@@ -88,15 +88,14 @@ The skill checks for these critical issues:
 ## Reading the Report
 
 ### Status Indicators
-- ✅ **PASS** - No vulnerabilities found
-- ❌ **FAIL** - Vulnerabilities detected
-- ⚠️ **WARNING** - Potential issues
+- **PASS** - No vulnerabilities found
+- **FAIL** - Vulnerabilities detected
 
 ### Severity Levels
-- 🔴 **CRITICAL** - Fix immediately (data breach risk)
-- 🟠 **HIGH** - Fix this week (security compromise risk)
-- 🟡 **MEDIUM** - Fix this month (compliance risk)
-- 🔵 **LOW** - Consider fixing (best practices)
+- **CRITICAL** - Fix immediately (data breach risk)
+- **HIGH** - Fix this week (security compromise risk)
+- **MEDIUM** - Fix this month (compliance risk)
+- **LOW** - Consider fixing (best practices)
 
 ### Report Sections
 
@@ -220,6 +219,17 @@ cat ~/.claude/skills/owasp-llm-10/README.md
 ```bash
 ls ~/.claude/skills/owasp-llm-10/references/
 ```
+
+## Modern Skill Structure
+
+This skill follows modern Claude Code best practices:
+
+- **Semantic XML Structure**: Uses tags like `<objective>`, `<workflow>`, `<constraints>` for clear organization
+- **Input Validation**: Verifies mode and path arguments before execution
+- **Error Handling**: Provides clear messages for common issues (file not found, permission denied, etc.)
+- **Cross-Platform**: Works on Windows, Mac, and Linux with relative paths
+- **Comprehensive Examples**: Three concrete examples showing skill, agent, and hook audits
+- **Documented References**: All 10 OWASP files explicitly listed with descriptions
 
 ## Tips
 
