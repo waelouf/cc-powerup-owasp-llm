@@ -57,7 +57,7 @@ This powerup performs deep security analysis across **10 OWASP LLM vulnerability
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/cc-powerup-owasp-llm.git
+git clone https://github.com/waelouf/cc-powerup-owasp-llm.git
 
 # Copy to Claude Code skills directory
 cp -r cc-powerup-owasp-llm/skills/owasp-llm-10 ~/.claude/skills/
@@ -455,9 +455,11 @@ Found a new vulnerability pattern? Want to improve detection logic?
 - 📖 **[Quick Start Guide](QUICKSTART.md)** - Get running in 5 minutes
 - 📚 **[Full Documentation](README.md)** - Comprehensive usage guide
 - 🔍 **[Example Reports](examples/)** - See what audit output looks like
-- 🐛 **[Issue Tracker](https://github.com/yourusername/cc-powerup-owasp-llm/issues)** - Report bugs or request features
+- 🐛 **[Issue Tracker](https://github.com/waelouf/cc-powerup-owasp-llm/issues)** - Report bugs or request features
 
 ## License
+
+This project is licensed under the [MIT License](LICENSE).
 
 Based on the [OWASP LLM Top 10](https://owasp.org/www-project-top-10-for-large-language-model-applications/) framework.
 

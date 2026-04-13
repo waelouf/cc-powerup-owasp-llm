@@ -7,7 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- MIT license file (LICENSE)
+- Enhanced badge section in README (OWASP, Claude Code, Version, License badges)
+
 ### Changed
+- Updated plugin name to `owasp-llm-auditor-powerup` in plugin.json
+- Updated plugin metadata with comprehensive keywords and MIT license field
+- Refreshed README with improved formatting and badge layout
 - **Phase 1**: Improved skill compliance with modern Claude Code best practices
   - Added required XML tags: `<objective>`, `<quick_start>`, `<success_criteria>`
   - Enhanced YAML description to include "when to use" guidance
